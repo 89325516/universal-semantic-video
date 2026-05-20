@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://usv-format.example/schema/defs/fallbacks.schema.json",
+  "$defs": {
+    "fallbacks": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["subtitles"],
+      "properties": {
+        "subtitles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/subtitleFallback"
+          }
+        }
+      }
+    },
+    "subtitleFallback": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["language", "kind", "href"],
+      "properties": {
+        "language": {
+          "$ref": "https://usv-format.example/schema/defs/common.schema.json#/$defs/languageTag"
+        },
+        "kind": {
+          "enum": ["subtitles", "captions", "descriptions", "metadata"]
+        },
+        "href": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}

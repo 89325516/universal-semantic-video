@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://usv-format.example/schema/defs/semantic.schema.json",
+  "$defs": {
+    "semanticGraph": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["objects", "events", "relations"],
+      "properties": {
+        "objects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/semanticObject"
+          }
+        },
+        "events": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/semanticEvent"
+          }
+        },
+        "relations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/semanticRelation"
+          }
+        }
+      }
+    },
+    "semanticObject": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "kind", "labels"],
+      "properties": {
+        "id": {
+          "$ref": "https://usv-format.example/schema/defs/common.schema.json#/$defs/id"
+        },
+        "kind": {
+          "enum": ["visual_text", "speech", "speaker", "sound", "scene", "screen", "chart", "gesture", "subtitle", "music", "narration", "broadcast"]
+        },
+        "labels": {
+          "$ref": "https://usv-format.example/schema/defs/common.schema.json#/$defs/localizedLabels"
+        },
+        "source_language": {
+          "$ref": "https://usv-format.example/schema/defs/common.schema.json#/$defs/languageTag"
+        },
+        "regions": {
+          "type": "array",
+          "items": {
+            "$ref": "https://usv-format.example/schema/defs/common.schema.json#/$defs/region"
+          }
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "rights_policy_ref": {
+          "$ref": "https://usv-format.example/schema/defs/common.schema.json#/$defs/id"
+        }
+      }
+    },
+    "semanticEvent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "kind", "time", "source", "object_refs"],
+      "properties": {
+        "id": {
+          "$ref": "https://usv-format.example/schema/defs/common.schema.json#/$defs/id"
+        },
+        "kind": {
+          "enum": ["visual_text", "speech", "narration", "broadcast", "lyric", "music", "sound_effect", "subtitle", "scene_change"]
+        },
+        "time": {
+          "$ref": "https://usv-format.example/schema/defs/common.schema.json#/$defs/timeRange"
+        },
+        "source": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["language"],
+          "properties": {
+            "language": {
+              "$ref": "https://usv-format.example/schema/defs/common.schema.json#/$defs/languageTag"
+            },
+            "text": {
+              "type": "string"
+            }
+          }
+        },
+        "object_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "https://usv-format.example/schema/defs/common.schema.json#/$defs/id"
+          }
+        }
+      }
+    },
+    "semanticRelation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "type", "from", "to"],
+      "properties": {
+        "id": {
+          "$ref": "https://usv-format.example/schema/defs/common.schema.json#/$defs/id"
+        },
+        "type": {
+          "enum": ["speech_to_speaker", "speech_to_subtitle", "speech_to_spatial_position", "speech_to_visual_text", "narration_to_region", "gesture_to_object", "text_to_surface", "audio_to_environment", "synchronized_with"]
+        },
+        "from": {
+          "$ref": "https://usv-format.example/schema/defs/common.schema.json#/$defs/id"
+        },
+        "to": {
+          "type": "array",
+          "items": {
+            "$ref": "https://usv-format.example/schema/defs/common.schema.json#/$defs/id"
+          },
+          "minItems": 1
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      }
+    }
+  }
+}

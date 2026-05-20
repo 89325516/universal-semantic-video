@@ -1,0 +1,189 @@
+{
+  "usv_version": "0.1.0",
+  "media": {
+    "id": "media_airport_demo",
+    "type": "video",
+    "container": "mp4",
+    "duration_seconds": 28.5,
+    "primary_language": "en-US"
+  },
+  "semantic": {
+    "objects": [
+      {
+        "id": "obj_exit_sign",
+        "kind": "visual_text",
+        "labels": {
+          "default": "Exit sign",
+          "de-DE": "Ausgangsschild"
+        },
+        "source_language": "en-US",
+        "regions": [
+          {
+            "kind": "quad",
+            "points": [
+              [0.22, 0.18],
+              [0.44, 0.18],
+              [0.44, 0.28],
+              [0.22, 0.28]
+            ]
+          }
+        ],
+        "confidence": 0.98,
+        "rights_policy_ref": "rights_public_demo"
+      },
+      {
+        "id": "obj_gate_speaker",
+        "kind": "speaker",
+        "labels": {
+          "default": "Gate speaker",
+          "de-DE": "Gate-Lautsprecher"
+        },
+        "confidence": 0.76,
+        "rights_policy_ref": "rights_public_demo"
+      }
+    ],
+    "events": [
+      {
+        "id": "evt_exit_text",
+        "kind": "visual_text",
+        "time": {
+          "start": 12.4,
+          "end": 17.85
+        },
+        "source": {
+          "language": "en-US",
+          "text": "Exit"
+        },
+        "object_refs": ["obj_exit_sign"]
+      },
+      {
+        "id": "evt_gate_announcement",
+        "kind": "speech",
+        "time": {
+          "start": 14.1,
+          "end": 18.2
+        },
+        "source": {
+          "language": "en-US",
+          "text": "Please proceed to the exit."
+        },
+        "object_refs": ["obj_gate_speaker"]
+      }
+    ],
+    "relations": [
+      {
+        "id": "rel_announcement_speaker",
+        "type": "speech_to_speaker",
+        "from": "evt_gate_announcement",
+        "to": ["obj_gate_speaker"],
+        "confidence": 0.82
+      }
+    ]
+  },
+  "localization": {
+    "default_target_languages": ["de-DE"],
+    "glossary": {
+      "Exit": "Ausgang",
+      "Gate": "Flugsteig"
+    },
+    "intents": [
+      {
+        "target_language": "de-DE",
+        "intent": "replace_in_place",
+        "scope": {
+          "object_refs": ["obj_exit_sign"]
+        },
+        "requires_human_review": true,
+        "fallback": ["label", "subtitle", "show_original"]
+      },
+      {
+        "target_language": "de-DE",
+        "intent": "subtitle",
+        "scope": {
+          "event_refs": ["evt_gate_announcement"]
+        },
+        "requires_human_review": true,
+        "fallback": ["caption", "show_original"]
+      }
+    ],
+    "translations": [
+      {
+        "source_ref": "evt_exit_text",
+        "language": "de-DE",
+        "text": "Ausgang",
+        "status": "human_approved",
+        "fit": "ok"
+      },
+      {
+        "source_ref": "evt_gate_announcement",
+        "language": "de-DE",
+        "text": "Bitte gehen Sie zum Ausgang.",
+        "status": "human_approved",
+        "fit": "ok"
+      }
+    ]
+  },
+  "rendering": {
+    "capability_levels": {
+      "minimum": ["show_original", "show_subtitle"],
+      "recommended": ["overlay_labels", "verify_provenance"],
+      "advanced": ["inpaint_visual_text", "spatial_audio_render"]
+    },
+    "plans": [
+      {
+        "target_language": "de-DE",
+        "scope": {
+          "object_refs": ["obj_exit_sign"]
+        },
+        "mode": "label_overlay",
+        "fallback": "subtitle"
+      },
+      {
+        "target_language": "de-DE",
+        "scope": {
+          "event_refs": ["evt_gate_announcement"]
+        },
+        "mode": "subtitle",
+        "fallback": "show_original"
+      }
+    ]
+  },
+  "rights": {
+    "policies": [
+      {
+        "id": "rights_public_demo",
+        "allow_ai": false,
+        "requires_human_review": true,
+        "allow_voice_clone": false,
+        "required_disclosure": true,
+        "consent_status": "not_applicable"
+      }
+    ]
+  },
+  "provenance": {
+    "status": "unknown",
+    "c2pa_manifest_ref": null,
+    "records": [
+      {
+        "id": "prov_public_demo",
+        "action": "authored",
+        "agent": "USV public example",
+        "timestamp": "2026-05-20T00:00:00Z"
+      }
+    ]
+  },
+  "fallbacks": {
+    "subtitles": [
+      {
+        "language": "en-US",
+        "kind": "subtitles",
+        "href": "subtitles.en-US.vtt"
+      },
+      {
+        "language": "de-DE",
+        "kind": "subtitles",
+        "href": "subtitles.de-DE.vtt"
+      }
+    ]
+  }
+}

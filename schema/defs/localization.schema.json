@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://usv-format.example/schema/defs/localization.schema.json",
+  "$defs": {
+    "localization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["default_target_languages", "intents", "translations"],
+      "properties": {
+        "default_target_languages": {
+          "type": "array",
+          "items": {
+            "$ref": "https://usv-format.example/schema/defs/common.schema.json#/$defs/languageTag"
+          },
+          "minItems": 1
+        },
+        "glossary": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "intents": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/localizationIntent"
+          }
+        },
+        "translations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/translation"
+          }
+        }
+      }
+    },
+    "localizationIntent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["target_language", "intent", "scope", "fallback"],
+      "properties": {
+        "target_language": {
+          "$ref": "https://usv-format.example/schema/defs/common.schema.json#/$defs/languageTag"
+        },
+        "intent": {
+          "enum": ["translate", "transliterate", "explain", "preserve", "dub", "subtitle", "label", "replace_in_place", "dual_present", "accessibility_only", "do_not_process"]
+        },
+        "scope": {
+          "$ref": "https://usv-format.example/schema/defs/common.schema.json#/$defs/scope"
+        },
+        "requires_human_review": {
+          "type": "boolean"
+        },
+        "fallback": {
+          "type": "array",
+          "items": {
+            "enum": ["label", "subtitle", "caption", "show_original", "do_not_render"]
+          },
+          "minItems": 1
+        }
+      }
+    },
+    "translation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_ref", "language", "text", "status"],
+      "properties": {
+        "source_ref": {
+          "$ref": "https://usv-format.example/schema/defs/common.schema.json#/$defs/id"
+        },
+        "language": {
+          "$ref": "https://usv-format.example/schema/defs/common.schema.json#/$defs/languageTag"
+        },
+        "text": {
+          "type": "string"
+        },
+        "status": {
+          "enum": ["human_approved", "machine_generated", "needs_review", "rejected"]
+        },
+        "fit": {
+          "enum": ["ok", "too_long", "too_short", "unknown"]
+        }
+      }
+    }
+  }
+}

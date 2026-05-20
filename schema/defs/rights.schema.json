@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://usv-format.example/schema/defs/rights.schema.json",
+  "$defs": {
+    "rights": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["policies"],
+      "properties": {
+        "policies": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/rightsPolicy"
+          }
+        }
+      }
+    },
+    "rightsPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "allow_ai", "requires_human_review", "required_disclosure"],
+      "properties": {
+        "id": {
+          "$ref": "https://usv-format.example/schema/defs/common.schema.json#/$defs/id"
+        },
+        "allow_ai": {
+          "type": "boolean"
+        },
+        "requires_human_review": {
+          "type": "boolean"
+        },
+        "allow_voice_clone": {
+          "type": "boolean"
+        },
+        "required_disclosure": {
+          "type": "boolean"
+        },
+        "consent_status": {
+          "enum": ["not_applicable", "required", "present", "missing", "unknown"]
+        }
+      }
+    }
+  }
+}

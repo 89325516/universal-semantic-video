@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://usv-format.example/schema/defs/media.schema.json",
+  "$defs": {
+    "media": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "type", "duration_seconds", "primary_language"],
+      "properties": {
+        "id": {
+          "$ref": "https://usv-format.example/schema/defs/common.schema.json#/$defs/id"
+        },
+        "type": {
+          "enum": ["video", "audio", "image_sequence"]
+        },
+        "container": {
+          "enum": ["mp4", "mkv", "webm", "mov", "sidecar", "streaming_segment", "unknown"]
+        },
+        "duration_seconds": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "primary_language": {
+          "$ref": "https://usv-format.example/schema/defs/common.schema.json#/$defs/languageTag"
+        },
+        "source_hash": {
+          "type": "string",
+          "pattern": "^sha256:[a-fA-F0-9]{64}$"
+        }
+      }
+    }
+  }
+}

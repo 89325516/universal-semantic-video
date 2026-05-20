@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://usv-format.example/schema/defs/rendering.schema.json",
+  "$defs": {
+    "rendering": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["capability_levels", "plans"],
+      "properties": {
+        "capability_levels": {
+          "$ref": "#/$defs/capabilityLevels"
+        },
+        "plans": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/renderingPlan"
+          }
+        }
+      }
+    },
+    "capabilityLevels": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["minimum", "recommended", "advanced"],
+      "properties": {
+        "minimum": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "recommended": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "advanced": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "renderingPlan": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["target_language", "scope", "mode", "fallback"],
+      "properties": {
+        "target_language": {
+          "$ref": "https://usv-format.example/schema/defs/common.schema.json#/$defs/languageTag"
+        },
+        "scope": {
+          "$ref": "https://usv-format.example/schema/defs/common.schema.json#/$defs/scope"
+        },
+        "mode": {
+          "enum": ["subtitle", "label_overlay", "replace_in_place", "dub", "dual_present", "show_original"]
+        },
+        "fallback": {
+          "enum": ["subtitle", "label_overlay", "show_original", "do_not_render"]
+        }
+      }
+    }
+  }
+}

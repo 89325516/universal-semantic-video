@@ -1,0 +1,63 @@
+# Local environment and credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.cert
+credentials.*
+secrets.*
+service-account*.json
+token*.json
+
+# Private source documents and Drive exports
+*Google Drive*
+*google-drive*
+*.gdoc
+*.gsheet
+*.gslides
+*.docx
+*.pdf
+
+# Raw or private media assets
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.webm
+*.wav
+*.aiff
+*.mp3
+*.m4a
+*.aac
+*.flac
+*.psd
+*.zip
+*.tar
+*.tar.gz
+*.7z
+*.usvpkg/media/
+*.usvpkg/assets/voice_profiles/
+*.usvpkg/provenance/signatures/
+
+# Dependencies and generated output
+node_modules/
+dist/
+coverage/
+package-lock.json
+build/
+release/
+exports/
+packages/
+.npm-cache/
+
+# Logs, temp files, and OS metadata
+*.log
+logs/
+tmp/
+temp/
+.cache/
+.DS_Store

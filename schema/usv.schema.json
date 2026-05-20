@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://usv-format.example/schema/usv.schema.json",
+  "title": "USV Sidecar Document / USV-Sidecar-Dokument",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "usv_version",
+    "media",
+    "semantic",
+    "localization",
+    "rendering",
+    "rights",
+    "provenance",
+    "fallbacks"
+  ],
+  "properties": {
+    "usv_version": {
+      "type": "string",
+      "pattern": "^0\\.1\\.0$",
+      "description": "EN: Schema version for this sidecar. DE: Schema-Version fuer dieses Sidecar."
+    },
+    "media": {
+      "$ref": "https://usv-format.example/schema/defs/media.schema.json#/$defs/media"
+    },
+    "semantic": {
+      "$ref": "https://usv-format.example/schema/defs/semantic.schema.json#/$defs/semanticGraph"
+    },
+    "localization": {
+      "$ref": "https://usv-format.example/schema/defs/localization.schema.json#/$defs/localization"
+    },
+    "rendering": {
+      "$ref": "https://usv-format.example/schema/defs/rendering.schema.json#/$defs/rendering"
+    },
+    "rights": {
+      "$ref": "https://usv-format.example/schema/defs/rights.schema.json#/$defs/rights"
+    },
+    "provenance": {
+      "$ref": "https://usv-format.example/schema/defs/provenance.schema.json#/$defs/provenance"
+    },
+    "fallbacks": {
+      "$ref": "https://usv-format.example/schema/defs/fallbacks.schema.json#/$defs/fallbacks"
+    }
+  }
+}

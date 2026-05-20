@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://usv-format.example/schema/defs/provenance.schema.json",
+  "$defs": {
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "records"],
+      "properties": {
+        "status": {
+          "enum": ["absent", "present", "unknown", "failed"]
+        },
+        "c2pa_manifest_ref": {
+          "type": ["string", "null"]
+        },
+        "records": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/provenanceRecord"
+          }
+        }
+      }
+    },
+    "provenanceRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "action", "agent"],
+      "properties": {
+        "id": {
+          "$ref": "https://usv-format.example/schema/defs/common.schema.json#/$defs/id"
+        },
+        "action": {
+          "enum": ["authored", "recognized", "translated", "reviewed", "rendered", "exported"]
+        },
+        "agent": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

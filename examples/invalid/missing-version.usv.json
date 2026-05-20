@@ -1,0 +1,37 @@
+{
+  "media": {
+    "id": "media_airport_demo",
+    "type": "video",
+    "container": "mp4",
+    "duration_seconds": 28.5,
+    "primary_language": "en-US"
+  },
+  "semantic": {
+    "objects": [],
+    "events": [],
+    "relations": []
+  },
+  "localization": {
+    "default_target_languages": ["de-DE"],
+    "intents": [],
+    "translations": []
+  },
+  "rendering": {
+    "capability_levels": {
+      "minimum": ["show_original"],
+      "recommended": ["overlay_labels"],
+      "advanced": ["inpaint_visual_text"]
+    },
+    "plans": []
+  },
+  "rights": {
+    "policies": []
+  },
+  "provenance": {
+    "status": "unknown",
+    "records": []
+  },
+  "fallbacks": {
+    "subtitles": []
+  }
+}
