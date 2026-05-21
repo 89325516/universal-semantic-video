@@ -1,0 +1,224 @@
+{
+  "usv_version": "0.1.0",
+  "media": {
+    "id": "media_audio_visual_demo",
+    "type": "video",
+    "container": "mp4",
+    "duration_seconds": 42,
+    "primary_language": "en-US"
+  },
+  "semantic": {
+    "objects": [
+      {
+        "id": "obj_platform_sign",
+        "kind": "visual_text",
+        "labels": {
+          "default": "Platform sign",
+          "de-DE": "Bahnsteig-Schild"
+        },
+        "source_language": "en-US",
+        "regions": [
+          {
+            "kind": "rect",
+            "x": 0.11,
+            "y": 0.16,
+            "width": 0.34,
+            "height": 0.09
+          }
+        ],
+        "confidence": 0.94,
+        "rights_policy_ref": "rights_public_demo"
+      },
+      {
+        "id": "obj_station_speaker",
+        "kind": "speaker",
+        "labels": {
+          "default": "Station speaker",
+          "de-DE": "Bahnhofslautsprecher"
+        },
+        "confidence": 0.81,
+        "rights_policy_ref": "rights_public_demo"
+      },
+      {
+        "id": "obj_train_arrival_sound",
+        "kind": "sound",
+        "labels": {
+          "default": "Train arrival sound",
+          "de-DE": "Einfahrgeraeusch"
+        },
+        "confidence": 0.72,
+        "rights_policy_ref": "rights_public_demo"
+      }
+    ],
+    "events": [
+      {
+        "id": "evt_platform_text",
+        "kind": "visual_text",
+        "time": {
+          "start": 4,
+          "end": 12
+        },
+        "source": {
+          "language": "en-US",
+          "text": "Platform 3"
+        },
+        "object_refs": ["obj_platform_sign"]
+      },
+      {
+        "id": "evt_station_announcement",
+        "kind": "speech",
+        "time": {
+          "start": 8,
+          "end": 15.5
+        },
+        "source": {
+          "language": "en-US",
+          "text": "The next train arrives at platform three."
+        },
+        "object_refs": ["obj_station_speaker"]
+      },
+      {
+        "id": "evt_train_sound",
+        "kind": "sound_effect",
+        "time": {
+          "start": 16,
+          "end": 22
+        },
+        "source": {
+          "language": "en-US",
+          "text": "Train arrival"
+        },
+        "object_refs": ["obj_train_arrival_sound"]
+      }
+    ],
+    "relations": [
+      {
+        "id": "rel_announcement_speaker",
+        "type": "speech_to_speaker",
+        "from": "evt_station_announcement",
+        "to": ["obj_station_speaker"],
+        "confidence": 0.84
+      },
+      {
+        "id": "rel_sound_environment",
+        "type": "audio_to_environment",
+        "from": "evt_train_sound",
+        "to": ["obj_train_arrival_sound"],
+        "confidence": 0.7
+      }
+    ]
+  },
+  "localization": {
+    "default_target_languages": ["de-DE"],
+    "glossary": {
+      "Platform": "Bahnsteig",
+      "train": "Zug"
+    },
+    "intents": [
+      {
+        "target_language": "de-DE",
+        "intent": "label",
+        "scope": {
+          "object_refs": ["obj_platform_sign"]
+        },
+        "requires_human_review": true,
+        "fallback": ["label", "subtitle", "show_original"]
+      },
+      {
+        "target_language": "de-DE",
+        "intent": "subtitle",
+        "scope": {
+          "event_refs": ["evt_station_announcement", "evt_train_sound"]
+        },
+        "requires_human_review": true,
+        "fallback": ["caption", "show_original"]
+      }
+    ],
+    "translations": [
+      {
+        "source_ref": "evt_platform_text",
+        "language": "de-DE",
+        "text": "Bahnsteig 3",
+        "status": "human_approved",
+        "fit": "ok"
+      },
+      {
+        "source_ref": "evt_station_announcement",
+        "language": "de-DE",
+        "text": "Der naechste Zug faehrt auf Bahnsteig drei ein.",
+        "status": "human_approved",
+        "fit": "ok"
+      },
+      {
+        "source_ref": "evt_train_sound",
+        "language": "de-DE",
+        "text": "Einfahrender Zug",
+        "status": "needs_review",
+        "fit": "unknown"
+      }
+    ]
+  },
+  "rendering": {
+    "capability_levels": {
+      "minimum": ["show_original", "show_subtitle"],
+      "recommended": ["overlay_labels", "caption_sound_effects", "verify_provenance"],
+      "advanced": ["replace_in_place", "spatial_audio_render"]
+    },
+    "plans": [
+      {
+        "target_language": "de-DE",
+        "scope": {
+          "object_refs": ["obj_platform_sign"]
+        },
+        "mode": "label_overlay",
+        "fallback": "subtitle"
+      },
+      {
+        "target_language": "de-DE",
+        "scope": {
+          "event_refs": ["evt_station_announcement", "evt_train_sound"]
+        },
+        "mode": "subtitle",
+        "fallback": "show_original"
+      }
+    ]
+  },
+  "rights": {
+    "policies": [
+      {
+        "id": "rights_public_demo",
+        "allow_ai": false,
+        "requires_human_review": true,
+        "allow_voice_clone": false,
+        "required_disclosure": true,
+        "consent_status": "not_applicable"
+      }
+    ]
+  },
+  "provenance": {
+    "status": "unknown",
+    "c2pa_manifest_ref": null,
+    "records": [
+      {
+        "id": "prov_audio_visual_demo",
+        "action": "authored",
+        "agent": "USV public example",
+        "timestamp": "2026-05-21T00:00:00Z"
+      }
+    ]
+  },
+  "fallbacks": {
+    "subtitles": [
+      {
+        "language": "en-US",
+        "kind": "captions",
+        "href": "audio-visual.en-US.vtt"
+      },
+      {
+        "language": "de-DE",
+        "kind": "captions",
+        "href": "audio-visual.de-DE.vtt"
+      }
+    ]
+  }
+}

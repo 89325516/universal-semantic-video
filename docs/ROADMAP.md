@@ -11,8 +11,8 @@ Goal: let developers create, validate, inspect, and discuss a USV sidecar.
 Release gate:
 
 - JSON Schema is public and tested.
-- CLI supports `init`, `validate`, and `inspect`.
-- Examples are public-safe and bilingual where text is visible.
+- CLI supports `init`, `validate`, `inspect`, and `conformance`.
+- Examples are public-safe and cover visual and audio-visual semantics.
 - README explains purpose, scope, standards posture, and contribution path.
 - Acceptance criteria and tests pass.
 
@@ -23,7 +23,7 @@ Goal: gather implementer feedback and tighten the core contract.
 Candidate work:
 
 - richer examples for captions, visual text, speaker mapping, and rights policies;
-- graph consistency checks for object and event references;
+- broader graph consistency checks beyond current core conformance;
 - issue templates for schema proposals and conformance reports;
 - packaging notes for `.usvpkg` without implementing archive tooling.
 
@@ -72,8 +72,8 @@ Ziel: Entwickler koennen ein USV-Sidecar erzeugen, validieren, inspizieren und d
 Release Gate:
 
 - JSON Schema ist oeffentlich und getestet.
-- CLI unterstuetzt `init`, `validate` und `inspect`.
-- Beispiele sind oeffentlich sicher und bei sichtbarem Text zweisprachig.
+- CLI unterstuetzt `init`, `validate`, `inspect` und `conformance`.
+- Beispiele sind oeffentlich sicher und decken visuelle sowie audio-visuelle Semantik ab.
 - README erklaert Zweck, Umfang, Standards und Beitragsweg.
 - Abnahmekriterien und Tests bestehen.
 
@@ -84,7 +84,7 @@ Ziel: Implementiererfeedback sammeln und den Kernvertrag schaerfen.
 Moegliche Arbeiten:
 
 - reichere Beispiele fuer Captions, sichtbaren Text, Sprecherzuordnung und Rechte;
-- Graph-Konsistenzpruefungen fuer Objekt- und Ereignisreferenzen;
+- breitere Graph-Konsistenzpruefungen ueber aktuelle Core-Conformance hinaus;
 - Issue-Templates fuer Schema-Vorschlaege und Conformance-Berichte;
 - Packaging-Notizen fuer `.usvpkg` ohne Archivwerkzeug.
 

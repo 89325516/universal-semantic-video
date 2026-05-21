@@ -14,10 +14,10 @@ Language: English | [Deutsch](README.de.md)
 This repository is a pre-1.0 public foundation. The current release is intentionally small:
 
 - JSON Schema for `.usv.json` sidecar files.
-- CLI commands to create, validate, and inspect sidecars.
-- Public-safe example files with WebVTT fallbacks.
+- CLI commands to create, validate, inspect, and run core conformance checks.
+- Public-safe visual and audio-visual example files with WebVTT fallbacks.
 - Product, technical, design, test, roadmap, architecture, and acceptance documents.
-- CI for build, tests, and sample validation.
+- CI for build, tests, sample validation, and public-safety scanning.
 
 Not included yet: OCR, ASR, diarization, AI translation, text-to-speech, lip sync, native container embedding, hosted APIs, graphical authoring, or a browser player.
 
@@ -39,6 +39,7 @@ npm install
 npm run check
 node dist/cli.js init scratch.usv.json
 node dist/cli.js validate scratch.usv.json
+node dist/cli.js conformance examples/lite/audio-visual-announcement.usv.json
 node dist/cli.js inspect examples/lite/airport-scene.usv.json
 ```
 
@@ -47,6 +48,7 @@ The package exposes a `usv` binary after build or package installation:
 ```bash
 usv init path/to/file.usv.json
 usv validate path/to/file.usv.json
+usv conformance path/to/file.usv.json
 usv inspect path/to/file.usv.json
 ```
 
@@ -75,12 +77,17 @@ A USV sidecar has eight required top-level sections:
 
 The current schema covers semantic objects, semantic events, relations, localization intents, translations, rendering plans, rights policies, provenance records, and subtitle fallbacks.
 
+`usv validate` checks schema shape. `usv conformance` checks schema plus core interoperability rules such as semantic references, time ranges, declared languages, and rights policy links.
+
 See:
 
 - [`schema/usv.schema.json`](schema/usv.schema.json)
 - [`examples/lite/airport-scene.usv.json`](examples/lite/airport-scene.usv.json)
+- [`examples/lite/audio-visual-announcement.usv.json`](examples/lite/audio-visual-announcement.usv.json)
 - [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)
 - [`docs/STANDARDS.md`](docs/STANDARDS.md)
+- [`docs/spec/USV-Core-Conformance.md`](docs/spec/USV-Core-Conformance.md)
+- [`docs/spec/USV-Profile-Levels.md`](docs/spec/USV-Profile-Levels.md)
 
 ## Standards Posture
 
@@ -99,7 +106,7 @@ The repository documents official references in [`docs/STANDARDS.md`](docs/STAND
 
 The near-term goal is fast external feedback on a stable, inspectable sidecar contract.
 
-- `0.1`: public schema, examples, validator, starter template, inspector, acceptance docs.
+- `0.1`: public schema, examples, validator, starter template, inspector, core conformance, acceptance docs.
 - `0.2`: richer examples, schema review issues, stricter semantic graph checks, packaging notes.
 - `0.3`: browser reference renderer for subtitles, labels, provenance indicators, and fallback behavior.
 - `0.4`: container and streaming embedding experiments based on existing standards mechanisms.
@@ -114,6 +121,8 @@ See [`docs/ROADMAP.md`](docs/ROADMAP.md) for release gates.
 - `examples/`: public-safe valid and invalid examples.
 - `docs/`: business, market, product, technical, architecture, design, test, risk, evidence, and roadmap documents.
 - `.github/workflows/ci.yml`: build, test, and sample validation workflow.
+- `.githooks/pre-push`: versioned public-safety hook for local Git pushes.
+- `scripts/check-public-safety.mjs`: public-safety scanner used by local checks, the hook, and CI.
 - `ACCEPTANCE.md`: release gate for this public foundation.
 
 ## Contributing
@@ -123,10 +132,13 @@ Contributions are welcome when they keep the format small, testable, reversible,
 Before opening a pull request:
 
 ```bash
+npm run install-hooks
 npm run check
 ```
 
 Public repository content must be English, German, or both. Do not submit private source briefs, Google Drive exports, raw media, credentials, local environment files, proprietary fonts, voice profiles, or generated release packages.
+
+The pre-push hook blocks current repository files and pushed commit snapshots with private workspace paths, credential-like files, raw media, private documents, generated archives, proprietary fonts, binary/oversized files, common secret tokens, or local user paths before Git sends objects to a remote.
 
 Behavior, interface, state-machine, or acceptance changes must update the relevant documents under `docs/` and `ACCEPTANCE.md`.
 

@@ -3,6 +3,7 @@ import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
+import { checkCoreConformance } from "../src/conformance.js";
 import { validateSidecarDocument } from "../src/validation.js";
 
 function readJson(path: string): unknown {
@@ -26,6 +27,39 @@ describe("USV sidecar validation", () => {
 
     expect(result.valid).toBe(false);
     expect(result.errors.join("\n")).toContain("usv_version");
+  });
+
+  it("accepts core conformance for the public airport scene example", () => {
+    const document = readJson("examples/lite/airport-scene.usv.json");
+    const result = checkCoreConformance(document);
+
+    expect(result).toEqual({
+      valid: true,
+      schema: {
+        valid: true,
+        errors: []
+      },
+      errors: []
+    });
+  });
+
+  it("accepts core conformance for the public audio-visual example", () => {
+    const document = readJson("examples/lite/audio-visual-announcement.usv.json");
+    const result = checkCoreConformance(document);
+
+    expect(result.valid).toBe(true);
+    expect(result.errors).toEqual([]);
+  });
+
+  it("rejects schema-valid sidecars with broken semantic references", () => {
+    const document = readJson("examples/invalid/broken-reference.usv.json");
+    const schema = validateSidecarDocument(document);
+    const conformance = checkCoreConformance(document);
+
+    expect(schema.valid).toBe(true);
+    expect(conformance.valid).toBe(false);
+    expect(conformance.errors.join("\n")).toContain("obj_missing");
+    expect(conformance.errors.join("\n")).toContain("evt_missing");
   });
 
   it("returns exit 0 for the valid example", () => {
@@ -95,5 +129,19 @@ describe("USV sidecar validation", () => {
     expect(output).toContain("USV version: 0.1.0");
     expect(output).toContain("Semantic objects: 2");
     expect(output).toContain("Target languages: de-DE");
+  });
+
+  it("returns exit 0 for core conformance on the valid example", () => {
+    execFileSync("node", ["dist/cli.js", "conformance", "examples/lite/airport-scene.usv.json"], {
+      stdio: "pipe"
+    });
+  });
+
+  it("returns a non-zero exit code for broken core conformance", () => {
+    expect(() =>
+      execFileSync("node", ["dist/cli.js", "conformance", "examples/invalid/broken-reference.usv.json"], {
+        stdio: "pipe"
+      })
+    ).toThrow();
   });
 });

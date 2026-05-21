@@ -14,10 +14,10 @@ Sprache: [English](README.md) | Deutsch
 Dieses Repository ist ein oeffentliches Pre-1.0-Fundament. Der aktuelle Umfang ist bewusst klein:
 
 - JSON Schema fuer `.usv.json`-Sidecar-Dateien.
-- CLI-Befehle zum Erzeugen, Validieren und Inspizieren von Sidecars.
-- Oeffentlich sichere Beispieldateien mit WebVTT-Fallbacks.
+- CLI-Befehle zum Erzeugen, Validieren, Inspizieren und fuer Core-Conformance-Checks.
+- Oeffentlich sichere visuelle und audio-visuelle Beispieldateien mit WebVTT-Fallbacks.
 - Produkt-, Technik-, Design-, Test-, Roadmap-, Architektur- und Abnahmedokumente.
-- CI fuer Build, Tests und Beispielvalidierung.
+- CI fuer Build, Tests, Beispielvalidierung und Public-Safety-Scanning.
 
 Noch nicht enthalten: OCR, ASR, Sprechertrennung, KI-Uebersetzung, Text-to-Speech, Lip-Sync, native Container-Einbettung, gehostete APIs, grafisches Authoring oder ein Browser-Player.
 
@@ -39,6 +39,7 @@ npm install
 npm run check
 node dist/cli.js init scratch.usv.json
 node dist/cli.js validate scratch.usv.json
+node dist/cli.js conformance examples/lite/audio-visual-announcement.usv.json
 node dist/cli.js inspect examples/lite/airport-scene.usv.json
 ```
 
@@ -47,6 +48,7 @@ Nach Build oder Paketinstallation steht ein `usv`-Binary bereit:
 ```bash
 usv init path/to/file.usv.json
 usv validate path/to/file.usv.json
+usv conformance path/to/file.usv.json
 usv inspect path/to/file.usv.json
 ```
 
@@ -75,12 +77,17 @@ Ein USV-Sidecar hat acht verpflichtende Top-Level-Bereiche:
 
 Das aktuelle Schema umfasst semantische Objekte, Ereignisse, Beziehungen, Lokalisierungsabsichten, Uebersetzungen, Rendering-Plaene, Rechte, Herkunftsdatensaetze und Untertitel-Fallbacks.
 
+`usv validate` prueft die Schema-Form. `usv conformance` prueft Schema plus Core-Interoperabilitaetsregeln wie semantische Referenzen, Zeitbereiche, deklarierte Sprachen und Rights-Policy-Links.
+
 Siehe:
 
 - [`schema/usv.schema.json`](schema/usv.schema.json)
 - [`examples/lite/airport-scene.usv.json`](examples/lite/airport-scene.usv.json)
+- [`examples/lite/audio-visual-announcement.usv.json`](examples/lite/audio-visual-announcement.usv.json)
 - [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)
 - [`docs/STANDARDS.md`](docs/STANDARDS.md)
+- [`docs/spec/USV-Core-Conformance.md`](docs/spec/USV-Core-Conformance.md)
+- [`docs/spec/USV-Profile-Levels.md`](docs/spec/USV-Profile-Levels.md)
 
 ## Standards
 
@@ -99,7 +106,7 @@ Offizielle Referenzen stehen in [`docs/STANDARDS.md`](docs/STANDARDS.md).
 
 Das kurzfristige Ziel ist schnelles externes Feedback zu einem stabilen und inspizierbaren Sidecar-Vertrag.
 
-- `0.1`: oeffentliches Schema, Beispiele, Validator, Starter-Template, Inspector, Abnahmedokumente.
+- `0.1`: oeffentliches Schema, Beispiele, Validator, Starter-Template, Inspector, Core-Conformance, Abnahmedokumente.
 - `0.2`: reichere Beispiele, Schema-Review-Issues, strengere semantische Graphpruefungen, Packaging-Notizen.
 - `0.3`: Browser-Referenzrenderer fuer Untertitel, Labels, Herkunftsanzeigen und Fallback-Verhalten.
 - `0.4`: Experimente fuer Container- und Streaming-Einbettung auf Basis bestehender Standards.
@@ -112,10 +119,13 @@ Beitraege sind willkommen, wenn sie das Format klein, testbar, reversibel und st
 Vor einem Pull Request:
 
 ```bash
+npm run install-hooks
 npm run check
 ```
 
 Oeffentliche Repository-Inhalte muessen auf Englisch, Deutsch oder in beiden Sprachen verfasst sein. Bitte keine privaten Briefings, Google-Drive-Exporte, Rohmedien, Zugangsdaten, lokalen Umgebungsdateien, proprietaeren Schriften, Stimmprofile oder erzeugten Release-Pakete einreichen.
+
+Der Pre-Push-Hook blockiert aktuelle Repository-Dateien und gepushte Commit-Snapshots mit privaten Workspace-Pfaden, credential-aehnlichen Dateien, Rohmedien, privaten Dokumenten, erzeugten Archiven, proprietaeren Schriften, binaeren/uebergrossen Dateien, gaengigen Secret-Tokens oder lokalen Nutzerpfaden, bevor Git Objekte an ein Remote sendet.
 
 ## Lizenz
 

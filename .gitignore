@@ -2,10 +2,20 @@
 .env
 .env.*
 !.env.example
+.envrc
+.npmrc
+.netrc
+.pypirc
+.ssh/
+.aws/
+.azure/
+.config/gcloud/
 *.pem
 *.key
 *.p12
 *.pfx
+*.jks
+*.keystore
 *.crt
 *.cert
 credentials.*
@@ -14,6 +24,7 @@ service-account*.json
 token*.json
 
 # Private source documents and Drive exports
+private/
 *Google Drive*
 *google-drive*
 *.gdoc
@@ -35,9 +46,20 @@ token*.json
 *.aac
 *.flac
 *.psd
+*.raw
+*.dng
+*.heic
+*.tif
+*.tiff
+*.otf
+*.ttf
+*.woff
+*.woff2
 *.zip
 *.tar
 *.tar.gz
+*.tgz
+*.rar
 *.7z
 *.usvpkg/media/
 *.usvpkg/assets/voice_profiles/

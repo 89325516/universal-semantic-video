@@ -18,8 +18,10 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "test": "npm run build && vitest run",
-    "validate:samples": "npm run build && node dist/cli.js validate examples/lite/airport-scene.usv.json && ! node dist/cli.js validate examples/invalid/missing-version.usv.json",
-    "check": "npm run test && npm run validate:samples"
+    "validate:samples": "npm run build && node dist/cli.js validate examples/lite/airport-scene.usv.json && node dist/cli.js validate examples/lite/audio-visual-announcement.usv.json && ! node dist/cli.js validate examples/invalid/missing-version.usv.json && node dist/cli.js conformance examples/lite/airport-scene.usv.json && node dist/cli.js conformance examples/lite/audio-visual-announcement.usv.json && ! node dist/cli.js conformance examples/invalid/broken-reference.usv.json",
+    "check:public": "node scripts/check-public-safety.mjs",
+    "install-hooks": "git config core.hooksPath .githooks",
+    "check": "npm run test && npm run validate:samples && npm run check:public"
   },
   "keywords": [
     "video",

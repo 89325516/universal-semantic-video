@@ -1,0 +1,107 @@
+{
+  "usv_version": "0.1.0",
+  "media": {
+    "id": "media_broken_reference",
+    "type": "video",
+    "container": "mp4",
+    "duration_seconds": 12,
+    "primary_language": "en-US"
+  },
+  "semantic": {
+    "objects": [
+      {
+        "id": "obj_sign",
+        "kind": "visual_text",
+        "labels": {
+          "default": "Gate sign",
+          "de-DE": "Gate-Schild"
+        },
+        "source_language": "en-US",
+        "rights_policy_ref": "rights_demo"
+      }
+    ],
+    "events": [
+      {
+        "id": "evt_announcement",
+        "kind": "speech",
+        "time": {
+          "start": 1,
+          "end": 3
+        },
+        "source": {
+          "language": "en-US",
+          "text": "Boarding starts now."
+        },
+        "object_refs": ["obj_missing"]
+      }
+    ],
+    "relations": []
+  },
+  "localization": {
+    "default_target_languages": ["de-DE"],
+    "glossary": {},
+    "intents": [
+      {
+        "target_language": "de-DE",
+        "intent": "subtitle",
+        "scope": {
+          "event_refs": ["evt_announcement"]
+        },
+        "requires_human_review": true,
+        "fallback": ["subtitle", "show_original"]
+      }
+    ],
+    "translations": [
+      {
+        "source_ref": "evt_missing",
+        "language": "de-DE",
+        "text": "Das Boarding beginnt jetzt.",
+        "status": "needs_review",
+        "fit": "unknown"
+      }
+    ]
+  },
+  "rendering": {
+    "capability_levels": {
+      "minimum": ["show_original", "show_subtitle"],
+      "recommended": ["overlay_labels"],
+      "advanced": ["replace_in_place"]
+    },
+    "plans": [
+      {
+        "target_language": "de-DE",
+        "scope": {
+          "event_refs": ["evt_announcement"]
+        },
+        "mode": "subtitle",
+        "fallback": "show_original"
+      }
+    ]
+  },
+  "rights": {
+    "policies": [
+      {
+        "id": "rights_demo",
+        "allow_ai": false,
+        "requires_human_review": true,
+        "allow_voice_clone": false,
+        "required_disclosure": true,
+        "consent_status": "not_applicable"
+      }
+    ]
+  },
+  "provenance": {
+    "status": "unknown",
+    "c2pa_manifest_ref": null,
+    "records": [
+      {
+        "id": "prov_broken_reference",
+        "action": "authored",
+        "agent": "USV invalid example"
+      }
+    ]
+  },
+  "fallbacks": {
+    "subtitles": []
+  }
+}

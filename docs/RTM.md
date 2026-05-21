@@ -12,8 +12,13 @@
 | CLI creates starter sidecars | `src/template.ts`, `src/cli.ts` | `TC-006` |
 | CLI preserves existing files during starter creation | `src/cli.ts` | `TC-007` |
 | CLI summarizes valid sidecars | `src/summary.ts`, `src/cli.ts` | `TC-008` |
+| CLI checks core conformance | `src/conformance.ts`, `src/cli.ts` | `TC-012`, `TC-013` |
+| Audio-visual example covers visual and auditory semantics | `examples/lite/audio-visual-announcement.usv.json` | `TC-014` |
+| Public push safety scan is reusable locally and in CI | `scripts/check-public-safety.mjs`, `package.json`, `.github/workflows/ci.yml` | `TC-005`, `TC-009` |
+| Public push safety scan runs before Git push | `.githooks/pre-push`, `package.json` | `TC-010`, `TC-011` |
 | Standards posture is documented | `docs/STANDARDS.md` | Documentation review |
-| Architecture and state machine are documented | `docs/ARCHITECTURE.md`, `docs/design/developer-adoption-cli.md` | Documentation review |
+| Architecture and state machine are documented | `docs/ARCHITECTURE.md`, `docs/design/developer-adoption-cli.md`, `docs/design/public-push-safety-gate.md`, `docs/design/core-conformance.md` | Documentation review |
+| Profile and conformance levels are documented | `docs/spec/USV-Core-Conformance.md`, `docs/spec/USV-Profile-Levels.md` | Documentation review |
 | Full check passes | `package.json` scripts | `TC-005` |
 
 ## Deutsch
@@ -28,6 +33,11 @@
 | CLI erzeugt Starter-Sidecars | `src/template.ts`, `src/cli.ts` | `TC-006` |
 | CLI erhaelt bestehende Dateien bei Starter-Erzeugung | `src/cli.ts` | `TC-007` |
 | CLI fasst gueltige Sidecars zusammen | `src/summary.ts`, `src/cli.ts` | `TC-008` |
+| CLI prueft Core-Conformance | `src/conformance.ts`, `src/cli.ts` | `TC-012`, `TC-013` |
+| Audio-visuelles Beispiel deckt visuelle und auditive Semantik ab | `examples/lite/audio-visual-announcement.usv.json` | `TC-014` |
+| Public-Push-Safety-Scan ist lokal und in CI wiederverwendbar | `scripts/check-public-safety.mjs`, `package.json`, `.github/workflows/ci.yml` | `TC-005`, `TC-009` |
+| Public-Push-Safety-Scan laeuft vor Git Push | `.githooks/pre-push`, `package.json` | `TC-010`, `TC-011` |
 | Standards-Position ist dokumentiert | `docs/STANDARDS.md` | Dokumentenreview |
-| Architektur und Zustandsmaschine sind dokumentiert | `docs/ARCHITECTURE.md`, `docs/design/developer-adoption-cli.md` | Dokumentenreview |
+| Architektur und Zustandsmaschine sind dokumentiert | `docs/ARCHITECTURE.md`, `docs/design/developer-adoption-cli.md`, `docs/design/public-push-safety-gate.md`, `docs/design/core-conformance.md` | Dokumentenreview |
+| Profil- und Conformance-Level sind dokumentiert | `docs/spec/USV-Core-Conformance.md`, `docs/spec/USV-Profile-Levels.md` | Dokumentenreview |
 | Voller Check besteht | `package.json`-Skripte | `TC-005` |

@@ -7,8 +7,11 @@ Contributions should keep the first-release scope small and verifiable. Public r
 Before opening a pull request, run:
 
 ```bash
+npm run install-hooks
 npm run check
 ```
+
+`npm run install-hooks` configures this repository to use the versioned `.githooks/pre-push` hook. The hook runs the public-safety scanner before Git sends objects to a remote.
 
 Changes that affect requirements, behavior, interfaces, state machines, or acceptance criteria must update the relevant document under `docs/` and the root `ACCEPTANCE.md` when needed.
 
@@ -19,7 +22,10 @@ Beitraege sollen den Umfang klein und pruefbar halten. Oeffentliche Repository-I
 Vor einem Pull Request bitte ausfuehren:
 
 ```bash
+npm run install-hooks
 npm run check
 ```
+
+`npm run install-hooks` konfiguriert dieses Repository fuer den versionierten `.githooks/pre-push`-Hook. Der Hook fuehrt den Public-Safety-Scanner aus, bevor Git Objekte an ein Remote sendet.
 
 Aenderungen an Anforderungen, Verhalten, Schnittstellen, Zustandsmaschinen oder Abnahmekriterien muessen die passenden Dokumente unter `docs/` und bei Bedarf `ACCEPTANCE.md` aktualisieren.
