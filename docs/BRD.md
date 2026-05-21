@@ -13,7 +13,7 @@ Media localization still depends on platform-specific subtitles, burned-in text 
 ### Constraints
 
 - Use existing media containers and standards where possible.
-- Keep the first release limited to schema, examples, validator, and documents.
+- Keep the first release limited to schema, examples, starter creation, validation, inspection, tests, and documents.
 - Do not publish private source material or raw media.
 - Repository-facing text is English, German, or both.
 
@@ -34,7 +34,7 @@ Medienlokalisierung haengt oft von plattformspezifischen Untertiteln, eingebrann
 ### Einschraenkungen
 
 - Bestehende Mediencontainer und Standards werden bevorzugt.
-- Der erste Release bleibt auf Schema, Beispiele, Validator und Dokumente begrenzt.
+- Der erste Release bleibt auf Schema, Beispiele, Starter-Erzeugung, Validierung, Inspektion, Tests und Dokumente begrenzt.
 - Private Quellen und Rohmedien werden nicht veroeffentlicht.
 - Repository-Inhalte sind auf Englisch, Deutsch oder beides beschraenkt.
 

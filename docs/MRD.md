@@ -21,6 +21,13 @@ USV should complement, not replace:
 - HLS timed metadata for future streaming integration: https://www.rfc-editor.org/rfc/rfc8216
 - C2PA provenance for authenticity metadata: https://spec.c2pa.org/specifications/specifications/2.2/index.html
 
+### External Trends
+
+- Generative localization makes review status, intent, disclosure, and rights metadata more important than raw subtitle text alone.
+- Browser and streaming delivery still reward simple fallbacks, so WebVTT and HTML text tracks remain essential.
+- Provenance expectations are rising, so USV should reference provenance systems instead of hiding generation or edit history.
+- Tool developers need inspectable sidecars before they can justify deeper player, editor, or container integration.
+
 ### Market Requirement
 
 The first public artifact must be simple enough for developers to validate locally and explicit enough to support future tools without locking the ecosystem to one codec, container, model, translation method, or platform.
@@ -42,3 +49,10 @@ USV ergaenzt bestehende Standards und ersetzt sie nicht: WebVTT, HTML-Texttracks
 ### Marktanforderung
 
 Das erste oeffentliche Artefakt muss lokal leicht validierbar sein und zugleich genug Struktur fuer spaetere Werkzeuge bieten, ohne Codec, Container, Modell, Uebersetzungsmethode oder Plattform vorzuschreiben.
+
+### Externe Trends
+
+- Generative Lokalisierung macht Review-Status, Absicht, Offenlegung und Rechte wichtiger als reinen Untertiteltext.
+- Browser- und Streaming-Auslieferung profitieren weiter von einfachen Fallbacks, daher bleiben WebVTT und HTML-Texttracks zentral.
+- Herkunftserwartungen steigen, deshalb sollte USV Herkunftssysteme referenzieren, statt Erzeugung oder Bearbeitung zu verstecken.
+- Werkzeugentwickler brauchen inspizierbare Sidecars, bevor tiefere Player-, Editor- oder Containerintegration sinnvoll wird.

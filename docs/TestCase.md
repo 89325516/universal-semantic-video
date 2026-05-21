@@ -9,6 +9,9 @@
 | TC-003 | Run CLI against the valid example | Exit `0` |
 | TC-004 | Run CLI against the invalid example | Non-zero exit |
 | TC-005 | Run `npm run check` | Build, tests, and sample validation pass |
+| TC-006 | Run CLI `init` into a temporary path | New file exists and validates |
+| TC-007 | Run CLI `init` against an existing file | Non-zero exit and original content remains |
+| TC-008 | Run CLI `inspect` against the valid example | Summary includes version, semantic count, and target language |
 
 ## Deutsch
 
@@ -19,3 +22,6 @@
 | TC-003 | CLI gegen gueltiges Beispiel ausfuehren | Exit `0` |
 | TC-004 | CLI gegen ungueltiges Beispiel ausfuehren | Fehlercode |
 | TC-005 | `npm run check` ausfuehren | Build, Tests und Beispielvalidierung bestehen |
+| TC-006 | CLI `init` in einem temporaeren Pfad ausfuehren | Neue Datei existiert und validiert |
+| TC-007 | CLI `init` gegen eine bestehende Datei ausfuehren | Fehlercode und urspruenglicher Inhalt bleibt erhalten |
+| TC-008 | CLI `inspect` gegen gueltiges Beispiel ausfuehren | Zusammenfassung enthaelt Version, semantischen Zaehler und Zielsprache |

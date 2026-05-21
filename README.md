@@ -1,40 +1,134 @@
 # Universal Semantic Video (USV)
 
-Universal Semantic Video is a declarative semantic media format for localization, accessibility, rights, and provenance metadata above existing audio and video containers. USV does not replace MP4, WebM, MKV, codecs, subtitles, or provenance standards. It defines a structured semantic sidecar that tools can validate, exchange, and later embed.
+[![CI](https://github.com/89325516/universal-semantic-video/actions/workflows/ci.yml/badge.svg)](https://github.com/89325516/universal-semantic-video/actions/workflows/ci.yml)
+[![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 
-## Current Scope
+Universal Semantic Video is an open semantic sidecar format for localization, accessibility, rights, provenance, and adaptive rendering above existing media containers.
 
-This repository is the first public scaffold. It provides:
+USV is not a new codec, player, or MP4 replacement. It keeps video and audio in existing delivery systems, then adds a portable semantic layer that tools can validate, exchange, render, and later embed.
 
-- a USV sidecar JSON Schema;
-- a command-line validator;
-- valid and invalid examples;
-- English and German project documents;
-- acceptance criteria for the first public release.
+Language: English | [Deutsch](README.de.md)
 
-It intentionally does not include OCR, ASR, video transcoding, AI inference, cloud APIs, player UI, or native container embedding.
+## Status
+
+This repository is a pre-1.0 public foundation. The current release is intentionally small:
+
+- JSON Schema for `.usv.json` sidecar files.
+- CLI commands to create, validate, and inspect sidecars.
+- Public-safe example files with WebVTT fallbacks.
+- Product, technical, design, test, roadmap, architecture, and acceptance documents.
+- CI for build, tests, and sample validation.
+
+Not included yet: OCR, ASR, diarization, AI translation, text-to-speech, lip sync, native container embedding, hosted APIs, graphical authoring, or a browser player.
+
+## Why USV
+
+Video workflows already have strong standards for compression, containers, captions, streaming, and provenance. They still lack a compact and inspectable way to say:
+
+- what semantic objects, spoken segments, visual text, sounds, scenes, charts, and speakers exist;
+- which parts may be translated, preserved, dubbed, labeled, explained, or left untouched;
+- which rights, consent, review, disclosure, and provenance rules apply;
+- which fallbacks a simple device can render when advanced rendering is unavailable.
+
+USV provides that layer as data, not as a replacement for the media stack.
 
 ## Quick Start
 
 ```bash
 npm install
 npm run check
-node dist/cli.js validate examples/lite/airport-scene.usv.json
+node dist/cli.js init scratch.usv.json
+node dist/cli.js validate scratch.usv.json
+node dist/cli.js inspect examples/lite/airport-scene.usv.json
 ```
+
+The package exposes a `usv` binary after build or package installation:
+
+```bash
+usv init path/to/file.usv.json
+usv validate path/to/file.usv.json
+usv inspect path/to/file.usv.json
+```
+
+Exit codes:
+
+- `0`: success.
+- `1`: readable JSON that fails USV validation.
+- `2`: operational failure such as missing file, invalid JSON, or write failure.
+
+## Format Shape
+
+A USV sidecar has eight required top-level sections:
+
+```json
+{
+  "usv_version": "0.1.0",
+  "media": {},
+  "semantic": {},
+  "localization": {},
+  "rendering": {},
+  "rights": {},
+  "provenance": {},
+  "fallbacks": {}
+}
+```
+
+The current schema covers semantic objects, semantic events, relations, localization intents, translations, rendering plans, rights policies, provenance records, and subtitle fallbacks.
+
+See:
+
+- [`schema/usv.schema.json`](schema/usv.schema.json)
+- [`examples/lite/airport-scene.usv.json`](examples/lite/airport-scene.usv.json)
+- [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)
+- [`docs/STANDARDS.md`](docs/STANDARDS.md)
+
+## Standards Posture
+
+USV is designed to compose with the media ecosystem instead of competing with it.
+
+- Language fields use BCP 47 style tags as defined by RFC 5646.
+- Subtitle fallbacks use WebVTT where a browser-friendly text track is enough.
+- Browser playback should map simple fallbacks to HTML media tracks.
+- Provenance fields can reference C2PA manifests without copying or redefining them.
+- MP4, Matroska/WebM, HLS, DASH, and timed metadata integration are future embedding paths, not first-release requirements.
+- WebCodecs is relevant for future browser renderers, not required for the schema.
+
+The repository documents official references in [`docs/STANDARDS.md`](docs/STANDARDS.md).
+
+## Roadmap
+
+The near-term goal is fast external feedback on a stable, inspectable sidecar contract.
+
+- `0.1`: public schema, examples, validator, starter template, inspector, acceptance docs.
+- `0.2`: richer examples, schema review issues, stricter semantic graph checks, packaging notes.
+- `0.3`: browser reference renderer for subtitles, labels, provenance indicators, and fallback behavior.
+- `0.4`: container and streaming embedding experiments based on existing standards mechanisms.
+- `1.0`: frozen core schema profile, conformance suite, implementation guide, and governance process.
+
+See [`docs/ROADMAP.md`](docs/ROADMAP.md) for release gates.
 
 ## Repository Map
 
-- `schema/usv.schema.json` defines the first USV sidecar contract.
-- `examples/` contains public-safe sample USV files and WebVTT fallbacks.
-- `src/` contains the validator library and CLI boundary.
-- `docs/` contains BRD, MRD, PRD, TRD, design, and test documents.
-- `ACCEPTANCE.md` is the release gate for this scaffold.
+- `schema/`: USV JSON Schema and reusable definitions.
+- `src/`: validation library, starter template, summary logic, and CLI boundary.
+- `examples/`: public-safe valid and invalid examples.
+- `docs/`: business, market, product, technical, architecture, design, test, risk, evidence, and roadmap documents.
+- `.github/workflows/ci.yml`: build, test, and sample validation workflow.
+- `ACCEPTANCE.md`: release gate for this public foundation.
 
-## Deutsch
+## Contributing
 
-Universal Semantic Video ist ein deklaratives semantisches Medienformat fuer Lokalisierung, Barrierefreiheit, Rechte und Herkunftsnachweise oberhalb bestehender Audio- und Videocontainer. USV ersetzt keine Codecs, Container, Untertitel oder Herkunftsstandards. Dieses Repository liefert zunaechst Schema, Validator, Beispiele, Tests und oeffentliche Projektdokumente.
+Contributions are welcome when they keep the format small, testable, reversible, and standards-compatible.
 
-Der erste Umfang enthaelt keine OCR, keine Spracherkennung, kein Transcoding, keine KI-Inferenz, keine Cloud-API und keinen Player. Der Fokus liegt auf einem pruefbaren, oeffentlichen und erweiterbaren Standardfundament.
+Before opening a pull request:
+
+```bash
+npm run check
+```
+
+Public repository content must be English, German, or both. Do not submit private source briefs, Google Drive exports, raw media, credentials, local environment files, proprietary fonts, voice profiles, or generated release packages.
+
+Behavior, interface, state-machine, or acceptance changes must update the relevant documents under `docs/` and `ACCEPTANCE.md`.
 
 ## License
 

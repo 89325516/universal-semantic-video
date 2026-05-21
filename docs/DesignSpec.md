@@ -26,10 +26,12 @@ The format is declarative. It describes media semantics and allowed presentation
 ### CLI UX
 
 ```bash
+usv init path/to/file.usv.json
 usv validate path/to/file.usv.json
+usv inspect path/to/file.usv.json
 ```
 
-Success prints a bilingual success message. Validation failure prints schema errors. System failure prints the operational error.
+`init` creates a valid starter sidecar and never overwrites an existing file. `validate` prints a bilingual success message or schema errors. `inspect` validates first, then prints version, media, semantic counts, localization counts, rights count, provenance status, and fallback count. System failure prints the operational error.
 
 ## Deutsch
 
@@ -57,7 +59,9 @@ Das Format ist deklarativ. Es beschreibt Mediensemantik und erlaubte Praesentati
 ### CLI UX
 
 ```bash
+usv init path/to/file.usv.json
 usv validate path/to/file.usv.json
+usv inspect path/to/file.usv.json
 ```
 
-Erfolg gibt eine zweisprachige Erfolgsmeldung aus. Validierungsfehler geben Schemafehler aus. Systemfehler geben den operativen Fehler aus.
+`init` erzeugt ein gueltiges Starter-Sidecar und ueberschreibt nie eine bestehende Datei. `validate` gibt eine zweisprachige Erfolgsmeldung oder Schemafehler aus. `inspect` validiert zuerst und gibt dann Version, Medienangaben, semantische Zaehler, Lokalisierungszaehler, Rechtezaehler, Herkunftsstatus und Fallback-Zaehler aus. Systemfehler geben den operativen Fehler aus.

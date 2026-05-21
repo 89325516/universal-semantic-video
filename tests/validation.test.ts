@@ -1,5 +1,7 @@
 import { execFileSync } from "node:child_process";
-import { readFileSync } from "node:fs";
+import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { validateSidecarDocument } from "../src/validation.js";
 
@@ -38,5 +40,60 @@ describe("USV sidecar validation", () => {
         stdio: "pipe"
       })
     ).toThrow();
+  });
+
+  it("creates a valid starter sidecar from the CLI", () => {
+    const directory = mkdtempSync(join(tmpdir(), "usv-"));
+    const file = join(directory, "starter.usv.json");
+
+    try {
+      execFileSync("node", ["dist/cli.js", "init", file], {
+        stdio: "pipe"
+      });
+
+      const document = readJson(file);
+      const result = validateSidecarDocument(document);
+
+      expect(result).toEqual({
+        valid: true,
+        errors: []
+      });
+    } finally {
+      rmSync(directory, {
+        recursive: true,
+        force: true
+      });
+    }
+  });
+
+  it("does not overwrite an existing file during starter creation", () => {
+    const directory = mkdtempSync(join(tmpdir(), "usv-"));
+    const file = join(directory, "existing.usv.json");
+
+    try {
+      writeFileSync(file, "original", "utf8");
+
+      expect(() =>
+        execFileSync("node", ["dist/cli.js", "init", file], {
+          stdio: "pipe"
+        })
+      ).toThrow();
+      expect(readFileSync(file, "utf8")).toBe("original");
+    } finally {
+      rmSync(directory, {
+        recursive: true,
+        force: true
+      });
+    }
+  });
+
+  it("prints a summary for a valid sidecar", () => {
+    const output = execFileSync("node", ["dist/cli.js", "inspect", "examples/lite/airport-scene.usv.json"], {
+      encoding: "utf8"
+    });
+
+    expect(output).toContain("USV version: 0.1.0");
+    expect(output).toContain("Semantic objects: 2");
+    expect(output).toContain("Target languages: de-DE");
   });
 });

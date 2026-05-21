@@ -12,6 +12,7 @@
     "examples/",
     "docs/",
     "README.md",
+    "README.de.md",
     "LICENSE"
   ],
   "scripts": {
